@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+    <UserDefinedCommands>
+        <Command name="SAS variable search" Ctrl="yes" Alt="no" Shift="no" Key="66">cmd /C python C:\path\to\project\go_to_declaration.py &quot;$(FULL_CURRENT_PATH)&quot; &quot;$(CURRENT_WORD)&quot;</Command>
+    </UserDefinedCommands>
+</NotepadPlus>
