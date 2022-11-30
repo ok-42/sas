@@ -3,6 +3,14 @@
 A collection of utilities that facilitate SAS code development.
 
 
+# Prerequisite
+
+- Windows
+- Notepad++
+- Python
+- Git for Windows
+
+
 # Installation
 
 1. Clone the project.
