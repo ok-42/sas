@@ -3,6 +3,7 @@
 import re
 import subprocess
 import sys
+from pathlib import Path
 
 
 def main(
@@ -36,13 +37,40 @@ def main(
 
     number = find_line_number(full_current_path)
 
+    # Use NPP_FULL_FILE_PATH
+    npp_path = 'C:/Program Files/Notepad++/notepad++.exe'
+
+    # If a macro variable or function was declared in the current file
     if number > 0:
         args: list[str] = [
-            'C:/Program Files/Notepad++/notepad++.exe',
+            npp_path,
             full_current_path,
             f'-n{number}']
 
         subprocess.Popen(args)
+
+    # Otherwise, that name was declared in another file
+    else:
+
+        # Directory containing the current file
+        current_dir: Path = Path(full_current_path).parent
+
+        # All its subdirectories and files
+        for path in current_dir.iterdir():
+
+            # Ignore non-SAS files and current file
+            if path.suffix == '.sas' and path.as_posix() != full_current_path:
+
+                # Line number in another file
+                number_ext = find_line_number(path.as_posix())
+
+                # If the name was found in that file
+                if number_ext > 0:
+                    args: list[str] = [
+                        npp_path,
+                        path,
+                        f'-n{number_ext}']
+                    subprocess.Popen(args)
 
 
 if __name__ == '__main__':
