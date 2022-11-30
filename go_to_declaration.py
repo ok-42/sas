@@ -74,4 +74,7 @@ def main(
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+
+    # Corresponding Notepad++ variables are $(FULL_CURRENT_PATH) and $(CURRENT_WORD)
+    # https://npp-user-manual.org/docs/config-files/#userdefinedcommands
+    main(full_current_path=sys.argv[1], current_word=sys.argv[2])
