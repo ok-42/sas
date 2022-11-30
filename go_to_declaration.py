@@ -17,17 +17,20 @@ def main(
     """
 
     def find_line_number(file_path: str) -> int:
-        """Find a line where the macro variable is declared.
+        """Find a line where the macro variable or function is declared.
 
         :param file_path: path to a SAS file
         :return: line number; 0 if there is no occurrence
         """
         line_number = 0
-        regexp = re.compile(fr'%let {current_word}\b')
+
+        # TODO determine whether that is &variable or %function using CURRENT_LINESTR
+        regexp_var = re.compile(fr'%let {current_word}\b')
+        regexp_fun = re.compile(fr'%macro {current_word}\b')
         with open(file_path, encoding='utf-8') as file:
             for line in file.readlines():
                 line_number += 1
-                if regexp.search(line):
+                if regexp_var.search(line) or regexp_fun.search(line):
                     return line_number
         return 0
 
