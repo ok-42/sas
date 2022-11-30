@@ -16,18 +16,22 @@ def main(
     :return: None; opens Notepad++
     """
 
-    def find_line_number() -> int:
-        """Find a line where the macro variable is declared."""
+    def find_line_number(file_path: str) -> int:
+        """Find a line where the macro variable is declared.
+
+        :param file_path: path to a SAS file
+        :return: line number; 0 if there is no occurrence
+        """
         line_number = 0
         regexp = re.compile(fr'%let {current_word}\b')
-        with open(full_current_path, encoding='utf-8') as file:
+        with open(file_path, encoding='utf-8') as file:
             for line in file.readlines():
                 line_number += 1
                 if regexp.search(line):
                     return line_number
         return 0
 
-    number = find_line_number()
+    number = find_line_number(full_current_path)
 
     if number > 0:
         args: list[str] = [
