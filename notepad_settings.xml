@@ -2,5 +2,6 @@
 <NotepadPlus>
     <UserDefinedCommands>
         <Command name="SAS macro search" Ctrl="yes" Alt="no" Shift="no" Key="66">cmd /C python C:\path\to\project\go_to_declaration.py &quot;$(FULL_CURRENT_PATH)&quot; &quot;$(CURRENT_WORD)&quot;</Command>
+		<Command name="Get back to SAS macro" Ctrl="yes" Alt="no" Shift="yes" Key="66">cmd /C python C:\path\to\project\go_backward.py &quot;$(CURRENT_DIRECTORY)&quot;</Command>
     </UserDefinedCommands>
 </NotepadPlus>
