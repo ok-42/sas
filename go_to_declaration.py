@@ -6,16 +6,45 @@ import sys
 from pathlib import Path
 
 
+def save_last_position(
+        macro_file: str,
+        line_number: int,
+        settings_file_path: str
+):
+    """Save current cursor position before going to macro declaration.
+
+    :param macro_file: path to a file with macro usage; relative to the current directory
+    :param line_number: number of line where a macro was used
+    :param settings_file_path: full path to a file where these settings would be stored
+    :return: None; overrides file content
+    """
+
+    with open(settings_file_path, mode='w', encoding='utf-8') as file:
+        file.write(f'{macro_file}\n{line_number}')
+
+
 def main(
         full_current_path: str,
         current_word: str,
+        current_line: str,
 ) -> None:
     """Search for a macro variable declaration and open it in Notepad++.
 
     :param full_current_path: path to a source code file
     :param current_word: SAS macro variable name
+    :param current_line: line number where SAS macro is used
     :return: None; opens Notepad++
     """
+
+    settings_path = Path(full_current_path).parent / '.sas_navigation'
+
+    # Notepad++ variable CURRENT_LINE is less by one than actual value
+    current_line_adj = int(current_line) + 1
+
+    save_last_position(
+        macro_file=Path(full_current_path).name,
+        line_number=current_line_adj,
+        settings_file_path=settings_path.as_posix())
 
     def find_line_number(file_path: str) -> int:
         """Find a line where the macro variable or function is declared.
@@ -75,6 +104,6 @@ def main(
 
 if __name__ == '__main__':
 
-    # Corresponding Notepad++ variables are $(FULL_CURRENT_PATH) and $(CURRENT_WORD)
+    # Corresponding Notepad++ variables are $(FULL_CURRENT_PATH), $(CURRENT_WORD), and $(CURRENT_LINE)
     # https://npp-user-manual.org/docs/config-files/#userdefinedcommands
-    main(full_current_path=sys.argv[1], current_word=sys.argv[2])
+    main(full_current_path=sys.argv[1], current_word=sys.argv[2], current_line=sys.argv[3])
