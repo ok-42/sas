@@ -19,6 +19,7 @@ function g() {
     # String: Search in the current directory and save results to a text file
     if ! [[ $1 =~ $REGEXP ]] ; then
        grep -nr --color --exclude-dir=.git --exclude=$GREP_OUTPUT "$1" . > $GREP_OUTPUT
+       cat -n $GREP_OUTPUT
 
     # Number: Open the n-th line from the previous search results
     else
@@ -30,5 +31,9 @@ function g() {
             fi
         n=$((n+1));
         done < $GREP_OUTPUT;
+
+        # Structure of $line: file name, line number, and a line with found occurrence.
+        # These parts are separated by colon
+        echo $SEARCH_RESULT | awk -F':' '{print $1 " -n" $2}' | xargs start notepad++
     fi
 }
