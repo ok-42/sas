@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
     <UserDefinedCommands>
-        <Command name="SAS macro search" Ctrl="yes" Alt="no" Shift="no" Key="66">cmd /C python C:\path\to\project\go_to_declaration.py &quot;$(FULL_CURRENT_PATH)&quot; &quot;$(CURRENT_WORD)&quot; &quot;$(CURRENT_LINE)&quot;</Command>
-		<Command name="Get back to SAS macro" Ctrl="yes" Alt="no" Shift="yes" Key="66">cmd /C python C:\path\to\project\go_backward.py &quot;$(CURRENT_DIRECTORY)&quot;</Command>
+        <Command name="SAS macro search" Ctrl="yes" Alt="no" Shift="no" Key="66">cmd /C python -m nppsas &quot;go_to_declaration&quot; &quot;$(FULL_CURRENT_PATH)&quot; &quot;$(CURRENT_WORD)&quot; &quot;$(CURRENT_LINE)&quot;</Command>
+		<Command name="Get back to SAS macro" Ctrl="yes" Alt="no" Shift="yes" Key="66">cmd /C python -m nppsas &quot;go_backward&quot; &quot;$(CURRENT_DIRECTORY)&quot;</Command>
     </UserDefinedCommands>
 </NotepadPlus>

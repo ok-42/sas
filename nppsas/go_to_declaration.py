@@ -2,7 +2,6 @@
 
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 
@@ -100,10 +99,3 @@ def main(
                         path,
                         f'-n{number_ext}']
                     subprocess.Popen(args)
-
-
-if __name__ == '__main__':
-
-    # Corresponding Notepad++ variables are $(FULL_CURRENT_PATH), $(CURRENT_WORD), and $(CURRENT_LINE)
-    # https://npp-user-manual.org/docs/config-files/#userdefinedcommands
-    main(full_current_path=sys.argv[1], current_word=sys.argv[2], current_line=sys.argv[3])

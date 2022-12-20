@@ -4,7 +4,6 @@ Similar to 'Navigate - Last Edit Location'.
 """
 
 import subprocess
-import sys
 from pathlib import Path
 
 
@@ -47,7 +46,3 @@ def main(current_directory: str, filename: str = '.sas_navigation') -> None:
         f'-n{line_number}']
 
     subprocess.Popen(args)
-
-
-if __name__ == '__main__':
-    main(current_directory=sys.argv[1])
