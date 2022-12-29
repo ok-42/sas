@@ -22,6 +22,64 @@ def save_last_position(
         file.write(f'{macro_file}\n{line_number}')
 
 
+def find_macro_parameter(
+        lines: list[str],
+        parameter_name: str,
+        occurrence_line_number: int
+) -> int:
+    """Find parameter name in a ``%macro`` statement if the parameter was declared as a keyword argument.
+
+    Example:
+
+    >>> sas_code = [
+    ...     '%macro func(param_1=, param_2=);',
+    ...     '%put &param_2.;'
+    ...     '%mend func;']
+    >>> find_macro_parameter(
+    ...     lines=sas_code,
+    ...     parameter_name='param_2',  # Find this parameter ...
+    ...     occurrence_line_number=3   # ... that was used on the line 2 of SAS code
+    ... )
+
+    The expected result is 1 because that is the line that contains ``param_2`` declaration as a kwarg. That also
+    works when a signature takes multiple lines.
+
+    How the function works:
+
+    [1] Iterate all the lines before the 2nd line ``'%put &param_2.;'`` and look for ``%macro`` statement.
+
+    [2] Look for the ``param_2=`` text token within each ``%macro`` statement found in step [1].
+
+    :param lines: file content, list of str
+    :param parameter_name: macro variable name from a source code
+    :param occurrence_line_number: line number where a macro variable was used
+    :return: line number that refers to %macro statement
+    """
+
+    regexp_macro_definition = re.compile('%macro')
+    regexp_close_brackets = re.compile(r'\)\s*;')
+    regexp_whole_word = re.compile(fr'\b{parameter_name}\s*=')
+
+    # [1] Iterate lines before the macro variable occurrence
+    for i, line in enumerate(reversed(lines[:occurrence_line_number])):
+
+        # [2] If a macro function declaration started, ...
+        if regexp_macro_definition.search(line):
+
+            # (loop counter `i` is the offset of a %macro statement)
+            for j, line_2 in enumerate(lines[occurrence_line_number-i:occurrence_line_number]):
+
+                # ... look for a macro parameter in its signature until its closing bracket is found
+                if regexp_whole_word.search(line_2):
+                    return occurrence_line_number - i + j + 1
+
+                if regexp_close_brackets.search(line):
+                    break
+
+    # If no matching macro parameters were found
+    return 0
+
+
 def main(
         full_current_path: str,
         current_word: str,
@@ -56,12 +114,20 @@ def main(
         # TODO determine whether that is &variable or %function using CURRENT_LINESTR
         regexp_var = re.compile(fr'%let {current_word}\b')
         regexp_fun = re.compile(fr'%macro {current_word}\b')
+
+        # [1] Try to find either '%let' or '%macro' statements
         with open(file_path, encoding='utf-8') as file:
-            for line in file.readlines():
+            lines: list[str] = file.readlines()
+            for line in lines:
                 line_number += 1
                 if regexp_var.search(line) or regexp_fun.search(line):
                     return line_number
-        return 0
+
+        # [2] Try to find any '%macro' statement that is followed by the param declaration
+        return find_macro_parameter(
+            lines=lines,
+            parameter_name=current_word,
+            occurrence_line_number=current_line_adj)
 
     number = find_line_number(full_current_path)
 
