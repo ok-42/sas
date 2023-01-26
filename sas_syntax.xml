@@ -1,12 +1,12 @@
 <NotepadPlus>
     <UserLang name="SAS" ext="sas" udlVersion="2.1">
         <Settings>
-            <Global caseIgnored="yes" allowFoldOfComments="yes" foldCompact="yes" forcePureLC="0" decimalSeparator="0" />
+            <Global caseIgnored="yes" allowFoldOfComments="no" foldCompact="yes" forcePureLC="0" decimalSeparator="0" />
             <Prefix Keywords1="no" Keywords2="no" Keywords3="no" Keywords4="yes" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="yes" />
         </Settings>
         <KeywordLists>
             <Keywords name="Comments">00 01 02 03/* 04*/</Keywords>
-            <Keywords name="Numbers, prefix1">ddmmyy</Keywords>
+            <Keywords name="Numbers, prefix1">ddmmyy best</Keywords>
             <Keywords name="Numbers, prefix2"></Keywords>
             <Keywords name="Numbers, extras1"></Keywords>
             <Keywords name="Numbers, extras2"></Keywords>
@@ -14,35 +14,35 @@
             <Keywords name="Numbers, suffix2"></Keywords>
             <Keywords name="Numbers, range"></Keywords>
             <Keywords name="Operators1">&apos; - ! &quot; ( ) , . : ; ? @ [ \ ] ^ ` { | } ~ + &lt; &gt; = / *</Keywords>
-            <Keywords name="Operators2">ne or and not eq</Keywords>
+            <Keywords name="Operators2">ne or and not eq like</Keywords>
             <Keywords name="Folders in code1, open">data=</Keywords>
             <Keywords name="Folders in code1, middle"></Keywords>
             <Keywords name="Folders in code1, close"></Keywords>
-            <Keywords name="Folders in code2, open">proc data</Keywords>
+            <Keywords name="Folders in code2, open"></Keywords>
             <Keywords name="Folders in code2, middle"></Keywords>
-            <Keywords name="Folders in code2, close">run quit</Keywords>
+            <Keywords name="Folders in code2, close">run</Keywords>
             <Keywords name="Folders in comment, open"></Keywords>
             <Keywords name="Folders in comment, middle"></Keywords>
             <Keywords name="Folders in comment, close"></Keywords>
-            <Keywords name="Keywords1">&quot;read data&quot; &quot;create table&quot; &quot;order by&quot; &quot;group by&quot; select from inner left right join outer on where as &quot;union all&quot; by into &quot;create data&quot; union having corr&#x000D;&#x000A;set num str do to end output case when then else if options id in solve for merge retain convert var impvar problem include use rename length input infile datalines cards plot while</Keywords>
-            <Keywords name="Keywords2">keep label out drop calculated distinct month year noprint format sol init</Keywords>
-            <Keywords name="Keywords3">WORK NOTE WARNING ERROR</Keywords>
-            <Keywords name="Keywords4">&amp;</Keywords>
-            <Keywords name="Keywords5">%sysfunc %local %let %do %to %end %if %else symget %str %include %then %goto %put %scan %upcase</Keywords>
-            <Keywords name="Keywords6">proc quit run optmodel sql sort delete expand print contents transpose</Keywords>
-            <Keywords name="Keywords7">coalesce min max lag intck strip upcase mod intnx first last sum exp countw col mdy count substr find missing mean median ceil ifn monotonic</Keywords>
+            <Keywords name="Keywords1">&quot;read data&quot; &quot;create table&quot; &quot;order by&quot; &quot;group by&quot; select from inner left right cross join outer on where as &quot;union all&quot; by into &quot;create data&quot; union having corr &quot;is not missing&quot; update &quot;separated by&quot; &quot;insert into&quot;#x000D;&#x000A;set num str do to end output case when then else if id in solve for merge retain convert var impvar problem include use rename length input infile datalines cards plot while con score performance target level save series options libname title ods &quot;solve with nlp&quot;</Keywords>
+            <Keywords name="Keywords2">keep label out drop calculated distinct month year noprint format sol init boolean file seed trimmed legendlabel min max x y symbolgen obs details validvarname nominal interval nthreads text printlevel</Keywords>
+            <Keywords name="Keywords3">WORK NOTE WARNING ERROR TODO</Keywords>
+            <Keywords name="Keywords4">&amp; _OROPTMODEL_ _ALL_</Keywords>
+            <Keywords name="Keywords5">%sysfunc %local %let %do %to %end %if %else symget %str %include %then %goto %put %scan %upcase %sysevalf %superq</Keywords>
+            <Keywords name="Keywords6">data proc quit run optmodel sql sort delete expand print contents transpose hp4score hpforest hpclus sgplot</Keywords>
+            <Keywords name="Keywords7">abs coalesce coalescec lag intck strip upcase mod intnx first last sum exp countw col mdy count substr find missing mean median ceil ifn monotonic card log sqrt getoption dmnorm compress inputn datetime catx</Keywords>
             <Keywords name="Keywords8">% %macro %mend</Keywords>
             <Keywords name="Delimiters">00&quot; 01 02&quot; 03&apos; 04 05&apos; 06{ 07 08} 09[ 10 11] 12 13 14 15 16 17 18 19 20 21 22 23</Keywords>
         </KeywordLists>
         <Styles>
             <WordsStyle name="DEFAULT" fgColor="000000" bgColor="FFFFFF" fontStyle="0" nesting="0" />
-            <WordsStyle name="COMMENTS" fgColor="008040" bgColor="FFFFFF" fontStyle="2" nesting="0" />
+            <WordsStyle name="COMMENTS" fgColor="008040" bgColor="FFFFFF" fontStyle="2" nesting="143360" />
             <WordsStyle name="LINE COMMENTS" fgColor="008040" bgColor="FFFFFF" fontStyle="0" nesting="0" />
             <WordsStyle name="NUMBERS" fgColor="008040" bgColor="FFFFFF" fontStyle="1" nesting="0" />
             <WordsStyle name="KEYWORDS1" fgColor="0000FF" bgColor="FFFFFF" fontStyle="0" nesting="0" />
             <WordsStyle name="KEYWORDS2" fgColor="0080FF" bgColor="FFFFFF" fontStyle="0" nesting="0" />
-            <WordsStyle name="KEYWORDS3" fgColor="808080" bgColor="FFFFFF" fontStyle="2" nesting="0" />
-            <WordsStyle name="KEYWORDS4" fgColor="FF8000" bgColor="FFFFFF" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS3" fgColor="8000FF" bgColor="FFFFFF" fontStyle="2" nesting="0" />
+            <WordsStyle name="KEYWORDS4" fgColor="FF8000" bgColor="FFFFFF" fontStyle="2" nesting="0" />
             <WordsStyle name="KEYWORDS5" fgColor="30A5A5" bgColor="FFFFFF" fontStyle="2" nesting="0" />
             <WordsStyle name="KEYWORDS6" fgColor="8000FF" bgColor="FFFFFF" fontStyle="1" nesting="0" />
             <WordsStyle name="KEYWORDS7" fgColor="808000" bgColor="FFFFFF" fontStyle="2" nesting="0" />
@@ -53,7 +53,7 @@
             <WordsStyle name="FOLDER IN COMMENT" fgColor="000000" bgColor="FFFFFF" fontStyle="0" nesting="0" />
             <WordsStyle name="DELIMITERS1" fgColor="930093" bgColor="FFFFFF" fontStyle="0" nesting="8192" />
             <WordsStyle name="DELIMITERS2" fgColor="800080" bgColor="FFFFFF" fontStyle="0" nesting="0" />
-            <WordsStyle name="DELIMITERS3" fgColor="FF0000" bgColor="FFFFFF" fontStyle="0" nesting="17038336" />
+            <WordsStyle name="DELIMITERS3" fgColor="FF0000" bgColor="FFFFFF" fontStyle="0" nesting="50592776" />
             <WordsStyle name="DELIMITERS4" fgColor="8080C0" bgColor="FFFFFF" fontStyle="0" nesting="0" />
             <WordsStyle name="DELIMITERS5" fgColor="000000" bgColor="FFFFFF" fontStyle="0" nesting="0" />
             <WordsStyle name="DELIMITERS6" fgColor="000000" bgColor="FFFFFF" fontStyle="0" nesting="0" />
