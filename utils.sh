@@ -6,6 +6,43 @@ function sm() {
 }
 
 
+# Check a SAS log file for common errors
+function log() {
+
+    # TODO read default path from a config file
+    local log_file=${1:-test.log}
+
+    local pattern_1="Syntax error"
+    local pattern_2="ERROR:"
+
+    local line_number_1
+    local line_number_2
+
+    # The line number where the first syntax error appears in the log; written with ChatGPT
+    # If a syntax error was found, output message will be orange
+    line_number_1=$(grep -n "$pattern_1" "$log_file" | head -n 1 | cut -d ':' -f 1)
+    if [[ -n "$line_number_1" ]]; then
+        echo -e "\e[33mSyntax error found on line $line_number_1\e[0m"
+    fi
+
+    # If an ERROR: message was found, it's red
+    line_number_2=$(grep -n "$pattern_2" "$log_file" | head -n 1 | cut -d ':' -f 1)
+    if [[ -n "$line_number_2" ]]; then
+        echo -e "\e[31mError found on line $line_number_2\e[0m"
+    fi
+
+    # If no error messages were found, it's green
+    if [[ -z $line_number_1 && -z $line_number_2 ]]; then
+        echo -e "\e[32mNo errors found\e[0m"
+    fi
+
+    # The first error in the log file
+    local line_number
+    line_number=$((line_number_1 < line_number_2 ? line_number_1 : line_number_2))
+
+    start notepad++ "$log_file" -n"$line_number"
+}
+
 # Search for a given substring or retrieve a search result
 # Takes one argument that should be either a string (to search for) or a number (of a search result)
 function g() {
