@@ -11,6 +11,7 @@ function log() {
 
     # TODO read default path from a config file
     local log_file=${1:-test.log}
+	echo -e "Analysing ${BLUE}$log_file${RESET_COLOUR}"
 
     local pattern_1="Syntax error"
     local pattern_2="ERROR:"
@@ -31,14 +32,20 @@ function log() {
         echo -e "\e[31mError found on line $line_number_2\e[0m"
     fi
 
+    # The first error in the log file
+    local line_number
+
     # If no error messages were found, it's green
     if [[ -z $line_number_1 && -z $line_number_2 ]]; then
         echo -e "\e[32mNo errors found\e[0m"
-    fi
-
-    # The first error in the log file
-    local line_number
-    line_number=$((line_number_1 < line_number_2 ? line_number_1 : line_number_2))
+	    line_number=0
+	elif [[ -z $line_number_1 ]]; then
+		line_number=$line_number_2
+	elif [[ -z $line_number_2 ]]; then
+		line_number=$line_number_1
+	else
+		line_number=$((line_number_1 < line_number_2 ? line_number_1 : line_number_2))
+	fi
 
     start notepad++ "$log_file" -n"$line_number"
 }
