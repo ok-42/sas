@@ -88,7 +88,7 @@ function g() {
 
     # String: Search in the current directory and save results to a text file
     if ! [[ $1 =~ $REGEXP ]] ; then
-       grep -nr --color --exclude-dir=.git --exclude=$GREP_OUTPUT "$1" . > $GREP_OUTPUT
+       grep -nr --color --exclude-dir={.git,.idea,.venv} --exclude=$GREP_OUTPUT "$1" . > $GREP_OUTPUT
        cat -n $GREP_OUTPUT
 
     # Number: Open the n-th line from the previous search results
