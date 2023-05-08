@@ -50,6 +50,32 @@ function log() {
     start notepad++ "$log_file" -n"$line_number"
 }
 
+
+# Print parameters of a SAS macro from its execution log. Works if MLOGIC option is on
+function sas_macro_parameters() {
+
+    input_file="$1"
+
+    # Skip lines until the quoted text is found
+    found=0
+
+    while read -r line; do
+        if [[ $found -eq 0 ]]; then
+            if [[ "$line" == "MLOGIC(PUT_MACRO_FUNCTION_NAME_HERE):  Parameter"* ]]; then
+                found=1
+                echo "$line"
+            fi
+        else
+            if [[ "$line" == "MLOGIC(PUT_MACRO_FUNCTION_NAME_HERE):  Parameter"* ]]; then
+                echo "$line"
+            else
+                break
+            fi
+        fi
+    done < "$input_file"
+}
+
+
 # Search for a given substring or retrieve a search result
 # Takes one argument that should be either a string (to search for) or a number (of a search result)
 function g() {
